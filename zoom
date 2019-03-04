@@ -1,1 +1,12 @@
+let zoomOptions = {
+  "duration":   1200,
+  "delay":      0
+};
 
+export function image27_mouseIn(event) {
+  $w("#image27").show("zoom", zoomOptions);
+}
+
+export function image27_mouseOut(event) {
+	$w("#image27").hide("zoom", zoomOptions);
+}
