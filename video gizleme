@@ -1,0 +1,11 @@
+$w.onReady(() => {
+    $w("#myDataset").onReady(() => {
+  // Gets the current item properties and stores them in a variable called item
+        const item = $w("#myDataset").getCurrentItem();
+        // Checks if the current item has a value in the "video" field
+        if (!item.video) {
+        // Collapses the video player if there is no value for "video"
+            $w("#videoPlayer").collapse();
+        }
+    });
+});
