@@ -1,14 +1,14 @@
-import wixData from "wix-data";
+import wixData from 'wix-data';
 
 $w.onReady(() => {
-	wixData.query('Continents')
+	wixData.query('kategoriyaz')
 	.find()
 	.then(res => {
 		let options = [{"value": '', 'label': 'All Continents'}];
 		options.push(...res.items.map(continent => {
 			return {'value': continent.title, 'label': continent.title};
 		}));
-		$w('#dropdown3').options = options;
+		$w(`#iContinent`).options = options;
 	})
 });
 
@@ -16,29 +16,26 @@ let lastFilterTitle;
 let lastFilterContinent;
 
 let debounceTimer;
-export function input3_keyPress(event, $w) {
-	if (debounceTimer) {
+
+export function iTitle_keyPress(event) {
+    if (debounceTimer) {
 		clearTimeout(debounceTimer);
 		debounceTimer = undefined;
 	}
 	debounceTimer = setTimeout(() => {
-		filter($w('#input3').value, lastFilterContinent);
+		filter($w('#iTitle').value, lastFilterContinent);
 	}, 200);
 }
 
 function filter(title, continent) {
-	if (lastFilterTitle |== title || lastFilterContinent |== continent) {
+	if (lastFilterTitle !== title || lastFilterContinent !== continent) {
 		let newFilter = wixData.filter();
 		if (title)
-			newFilter = newFilter.contains('articleTitle', title);
+			newFilter = newFilter.contains('kategoriyaz', title);
 		if (continent)
-			newFilter = newFilter.eq('continent', continent);
-		$w('#dataset2').setFilter(newFilter);
+			newFilter = newFilter.eq('kategoriyaz', continent);
+		$w('#dynamicDataset').setFilter(newFilter);
 		lastFilterTitle = title;
 		lastFilterContinent = continent;
 	}
-}
-
-export function dropdown3_change(event,$w) {
-	filter(lastFilterTitle, $w('#dropdown3').value);
 }
