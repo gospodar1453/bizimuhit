@@ -1,0 +1,29 @@
+  if(cmd === `${prefix}sunucubilgi`){
+
+    let sicon = message.guild.iconURL;
+    let serverembed = new Discord.RichEmbed()
+    .setDescription("Bizim Muhit Discord Sunucusu Bilgi")
+    .setColor("#7289DA")
+    .setThumbnail(sicon)
+    .addField("Sunucu Adı", message.guild.name)
+    .addField("Oluşturulma Tarihi", message.guild.createdAt)
+    .addField("Toplam Üye Sayısı", message.guild.memberCount)
+    .addField("Katılma Tarihin", message.guild.joinedAt)
+
+    return message.channel.send(serverembed);
+  }
+
+  if(cmd === `${prefix}botbilgi`){
+
+    let bicon = bot.user.displayAvatarURL
+    let botembed = new Discord.RichEmbed()
+    .setDescription("Bizim Muhit Botun Künyesi")
+    .setColor("#7289DA")
+    .setThumbnail(bicon)
+    .addField("Bot Adı", bot.user.username)
+    .addField("Oluşturulma Tarihi", bot.user.createdAt)
+    .setAuthor("BOT YAPIMCISI:GOSPODAR1453", message.author.avatarURL)
+    .setFooter("Bizim Muhit Bot geliştirilmeye devam edilmektedir. Yapımcıya yapacağınız destekler botun gelişimine büyük katkı sunar. Daha fazla bilgi için Bizim Muhit sunucusunu ziyaret ediniz.", "https://i.resimyukle.xyz/bABRbR.png");
+
+  return message.channel.send(botembed);
+  }
