@@ -1,1 +1,41 @@
+import wixData from 'wix-data';
 
+$w.onReady(() => {
+	wixData.query('kategoriyaz')
+	.find()
+	.then(res => {
+		let options = [{"value": '', 'label': 'All Continents'}];
+		options.push(...res.items.map(continent => {
+			return {'value': continent.title, 'label': continent.title};
+		}));
+		$w(`#iContinent`).options = options;
+	})
+});
+
+let lastFilterTitle;
+let lastFilterContinent;
+
+let debounceTimer;
+
+export function iTitle_keyPress(event) {
+    if (debounceTimer) {
+		clearTimeout(debounceTimer);
+		debounceTimer = undefined;
+	}
+	debounceTimer = setTimeout(() => {
+		filter($w('#iTitle').value, lastFilterContinent);
+	}, 200);
+}
+
+function filter(title, continent) {
+	if (lastFilterTitle !== title || lastFilterContinent !== continent) {
+		let newFilter = wixData.filter();
+		if (title)
+			newFilter = newFilter.contains('kategoriyaz', title);
+		if (continent)
+			newFilter = newFilter.eq('kategoriyaz', continent);
+		$w('#dynamicDataset').setFilter(newFilter);
+		lastFilterTitle = title;
+		lastFilterContinent = continent;
+	}
+}
